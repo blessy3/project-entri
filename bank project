@@ -1,0 +1,40 @@
+class BankAccount:
+    def __init__(self, account_number, pin, balance):
+        self.account_number = account_number
+        self.pin = pin
+        self.balance = balance
+
+    def login(self, entered_account_number, entered_pin):
+        if entered_account_number == self.account_number and entered_pin == self.pin:
+            return True
+        else:
+            return False
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            return amount
+        else:
+            return "Insufficient funds"
+
+account1 = BankAccount("5522", "4004", 10000)
+
+entered_account_number = input("Enter account number: ")
+entered_pin = input("Enter PIN: ")
+
+if account1.login(entered_account_number, entered_pin):
+    print("Login successful")
+    deposit_amount = float(input("Enter amount to deposit: "))
+    account1.deposit(deposit_amount)
+    print(f"New balance: {account1.balance}")
+    withdrawal_amount = float(input("Enter amount to withdraw: "))
+    result = account1.withdraw(withdrawal_amount)
+    if isinstance(result, str):
+        print(result)
+    else:
+        print(f"Withdrawn amount: {result}, New balance: {account1.balance}")
+else:
+    print("Invalid account number or PIN")
